@@ -1,12 +1,12 @@
 {
-  "name": "Mi Recetario",
-  "short_name": "Recetario",
+  "name": "La cocina de Pablo",
+  "short_name": "La cocina de Pablo",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f7f4ed",
-  "theme_color": "#426b50",
-  "description": "Tu recetario personal con favoritos y lista de la compra.",
+  "background_color": "#fff5ef",
+  "theme_color": "#b83b32",
+  "description": "Tus recetas caseras, favoritos y lista de la compra.",
   "icons": [
     {
       "src": "./icon-192.png",
