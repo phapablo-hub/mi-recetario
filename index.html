@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#426b50">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Mi Recetario</title>
+<style>
+:root{--bg:#f7f4ed;--card:#fffdf8;--ink:#24332b;--muted:#6b776f;--green:#426b50;--green2:#e2eee3;--line:#e4e2d8;--orange:#e9a15c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
+header{padding:22px 18px 14px;background:linear-gradient(135deg,#e2eee3,#f7f4ed)}.eyebrow{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--green);font-weight:800}.headrow{display:flex;align-items:center;justify-content:space-between;gap:10px}h1{font-size:30px;line-height:1.05;margin:7px 0 8px;letter-spacing:-1px}.subtitle{color:var(--muted);font-size:14px}
+button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}.primary{background:var(--green);color:white;border-radius:14px;padding:12px 15px;font-weight:700}.soft{background:var(--green2);color:var(--green);border-radius:12px;padding:10px 12px;font-weight:700}.round{border-radius:50%;width:42px;height:42px;background:white;font-size:22px;color:var(--green)}
+main{padding:16px;max-width:760px;margin:auto}.search{display:flex;gap:8px;margin:4px 0 14px}.search input{flex:1;min-width:0}.field,input,select,textarea{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px;color:var(--ink);outline-color:var(--green)}.chips{display:flex;gap:8px;overflow:auto;padding:2px 0 14px}.chip{white-space:nowrap;background:white;border:1px solid var(--line);border-radius:999px;padding:9px 13px;color:var(--muted);font-size:13px}.chip.active{background:var(--green);color:white;border-color:var(--green)}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:8px 0 12px}.section-title h2{font-size:20px;margin:0}.count{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.recipe-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;position:relative;cursor:pointer}.photo{height:125px;background:#e7e7dc;display:flex;align-items:center;justify-content:center;font-size:48px;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover}.cardbody{padding:12px}.cardbody h3{margin:0 0 6px;font-size:16px;line-height:1.25}.meta{font-size:12px;color:var(--muted)}.badge{display:inline-block;background:var(--green2);color:var(--green);border-radius:7px;padding:4px 7px;font-size:11px;margin-top:9px}.fav{position:absolute;top:8px;right:8px;border-radius:50%;background:#fffdf0;width:34px;height:34px;font-size:19px}
+.empty{text-align:center;padding:35px 20px;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:18px}.empty strong{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
+nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:9px 8px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:rgba(255,253,248,.96);border-top:1px solid var(--line);backdrop-filter:blur(12px)}nav button{background:transparent;color:var(--muted);font-size:11px;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:65px}nav button span{font-size:21px}nav button.active{color:var(--green);font-weight:800}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}.panel h2{margin:0 0 12px;font-size:20px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formgrid .full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:0 0 6px}.formrow{margin-bottom:12px}.formrow:last-child{margin-bottom:0}.formactions{display:flex;gap:8px;flex-wrap:wrap}.formactions button{flex:1}.hidden{display:none!important}
+.listitem{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}.listitem:last-child{border-bottom:0}.listitem input[type=checkbox]{width:20px;height:20px;accent-color:var(--green);margin-top:1px}.checked{text-decoration:line-through;color:var(--muted)}.detail-hero{height:210px;border-radius:18px;overflow:hidden;background:#e7e7dc;display:flex;align-items:center;justify-content:center;font-size:70px;margin-bottom:14px}.detail-hero img{width:100%;height:100%;object-fit:cover}.detail-title{font-size:27px;margin:0 0 8px}.detail-copy{white-space:pre-wrap;line-height:1.55}.detail-actions{display:flex;gap:8px;margin:12px 0 18px}.detail-actions button{flex:1}.small{font-size:12px;color:var(--muted);line-height:1.45}.notice{padding:12px;background:#fff2db;border-radius:12px;color:#755126;font-size:13px;line-height:1.45;margin:12px 0}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:150px}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Tu cocina, organizada</div><div class="headrow"><div><h1>Mi Recetario <span>🥑</span></h1><div class="subtitle">Tus platos favoritos, siempre a mano.</div></div><button class="round" onclick="openForm()" aria-label="Añadir receta">＋</button></div></header>
+<main>
+<section id="home">
+<div class="search"><input id="search" placeholder="Buscar receta o ingrediente…" oninput="renderRecipes()"><button class="soft" onclick="document.getElementById('search').value='';renderRecipes()">✕</button></div>
+<div class="chips" id="chips"></div>
+<div class="section-title"><h2 id="listHeading">Todas las recetas</h2><span class="count" id="recipeCount"></span></div>
+<div id="recipeGrid" class="grid"></div>
+</section>
+<section id="editor" class="hidden">
+<div class="section-title"><h2 id="editorHeading">Añadir receta</h2><button class="soft" onclick="showPage('home')">Cancelar</button></div>
+<div class="panel">
+<div class="formrow"><label for="recipeUrl">Importar desde un enlace (opcional)</label><div style="display:flex;gap:8px"><input id="recipeUrl" type="url" placeholder="https://…"><button class="soft" style="white-space:nowrap" onclick="importUrl()">Importar</button></div><p class="small">La importación automática depende de la web. Si no funciona, puedes guardar el enlace y completar los campos manualmente.</p></div>
+<div class="formrow"><label for="rTitle">Nombre de la receta *</label><input id="rTitle" placeholder="Ej. Lasaña de verduras"></div>
+<div class="formgrid">
+<div class="formrow"><label for="rCategory">Categoría</label><select id="rCategory"><option>Otras</option><option>Ensaladas</option><option>Verduras</option><option>Carne</option><option>Pescado</option><option>Pasta y arroz</option><option>Legumbres</option><option>Desayunos</option><option>Postres</option><option>Rápidas</option></select></div>
+<div class="formrow"><label for="rTime">Tiempo (minutos)</label><input id="rTime" type="number" min="0" placeholder="30"></div>
+<div class="formrow"><label for="rServings">Raciones</label><input id="rServings" type="number" min="1" value="2"></div>
+<div class="formrow"><label for="rPhoto">Enlace de foto (opcional)</label><input id="rPhoto" type="url" placeholder="https://…"></div>
+<div class="formrow full"><label for="rIngredients">Ingredientes y cantidades *</label><textarea id="rIngredients" rows="5" placeholder="200 g de pasta&#10;1 tomate&#10;1 cucharada de aceite"></textarea></div>
+<div class="formrow full"><label for="rSteps">Preparación paso a paso *</label><textarea id="rSteps" rows="6" placeholder="1. Prepara los ingredientes…&#10;2. Cocina…"></textarea></div>
+<div class="formrow full"><label for="rNotes">Notas personales (opcional)</label><textarea id="rNotes" rows="2" placeholder="Trucos, cambios, acompañamiento…"></textarea></div>
+</div><div class="formactions"><button class="primary" onclick="saveRecipe()">Guardar receta</button><button class="soft" onclick="resetForm()">Limpiar</button></div>
+</div>
+</section>
+<section id="shopping" class="hidden">
+<div class="section-title"><h2>Lista de la compra 🛒</h2><button class="soft" onclick="clearShopping()">Vaciar</button></div>
+<div class="panel"><div style="display:flex;gap:8px"><input id="newItem" placeholder="Añadir ingrediente…"><button class="primary" onclick="addShoppingItem()">Añadir</button></div><p class="small">Marca lo que ya hayas comprado.</p><div id="shoppingList"></div></div>
+</section>
+<section id="settings" class="hidden">
+<div class="panel"><h2>Tu recetario</h2><p>Las recetas se guardan en el almacenamiento de este navegador en este iPhone.</p><div class="notice">Importante: los datos guardados localmente pueden perderse si borras los datos de Safari. Usa la copia de seguridad para guardar un archivo de tus recetas.</div><div class="formactions"><button class="primary" onclick="exportData()">Exportar copia</button><button class="soft" onclick="document.getElementById('importFile').click()">Importar copia</button><input id="importFile" class="hidden" type="file" accept="application/json" onchange="importBackup(event)"></div><p class="small" style="margin-top:12px">Versión gratuita, sin cuenta ni suscripción. No está publicada en la App Store; se usa desde Safari y se puede añadir a la pantalla de inicio.</p></div>
+<div class="panel"><h2>Cómo añadirla al iPhone</h2><p>Cuando abras este archivo en Safari, toca <b>Compartir</b> → <b>Añadir a pantalla de inicio</b>. Si lo estás viendo desde una vista previa o desde Archivos, primero tendrás que abrirlo desde una dirección web accesible en Safari.</p></div>
+</section>
+<section id="detail" class="hidden"></section>
+</main>
+<nav>
+<button id="nav-home" class="active" onclick="showPage('home')"><span>🍲</span>Recetas</button>
+<button id="nav-fav" onclick="setCategory('★ Favoritos')"><span>⭐</span>Favoritos</button>
+<button id="nav-shop" onclick="showPage('shopping')"><span>🛒</span>Compra</button>
+<button id="nav-settings" onclick="showPage('settings')"><span>⚙️</span>Más</button>
+</nav>
+<script>
+const KEY='miRecetario.recipes.v1', SHOP='miRecetario.shopping.v1';
+let recipes=load(KEY,[]), shopping=load(SHOP,[]), category='Todas', editingId=null;
+const categories=['Todas','Ensaladas','Verduras','Carne','Pescado','Pasta y arroz','Legumbres','Desayunos','Postres','Rápidas','Otras'];
+function load(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(recipes));localStorage.setItem(SHOP,JSON.stringify(shopping))}
+function safe(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showPage(p){['home','editor','shopping','settings','detail'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==p));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));let n={home:'nav-home',shopping:'nav-shop',settings:'nav-settings'}[p];if(n)document.getElementById(n).classList.add('active');if(p==='home')renderRecipes();if(p==='shopping')renderShopping();window.scrollTo(0,0)}
+function setCategory(c){category=c;showPage('home');if(c==='★ Favoritos')document.getElementById('listHeading').textContent='Mis favoritos';else document.getElementById('listHeading').textContent=c==='Todas'?'Todas las recetas':c}
+function renderChips(){document.getElementById('chips').innerHTML=categories.map(c=>`<button class="chip ${category===c?'active':''}" onclick="setCategory('${c.replace(/'/g,"\\'")}')">${safe(c)}</button>`).join('')}
+function renderRecipes(){renderChips();let q=(document.getElementById('search')?.value||'').toLowerCase().trim();let list=recipes.filter(r=>(category==='Todas'||(category==='★ Favoritos'?r.favorite:r.category===category))&&(!q||[r.title,r.ingredients,r.steps,r.category].join(' ').toLowerCase().includes(q)));document.getElementById('recipeCount').textContent=list.length+' recetas';let grid=document.getElementById('recipeGrid');if(!list.length){grid.className='';grid.innerHTML=`<div class="empty"><div style="font-size:40px;margin-bottom:10px">🥣</div><strong>${recipes.length?'No hay resultados':'Tu recetario empieza aquí'}</strong>${recipes.length?'Prueba otra búsqueda o categoría.':'Añade tu primera receta con el botón +.'}<br><br><button class="primary" onclick="openForm()">＋ Añadir receta</button></div>`;return}grid.className='grid';grid.innerHTML=list.map(r=>`<article class="recipe-card" onclick="showDetail('${r.id}')"><div class="photo">${r.photo?`<img src="${safe(r.photo)}" alt="" onerror="this.parentElement.innerHTML='🍽️'">`:'🍽️'}</div><button class="fav" onclick="event.stopPropagation();toggleFav('${r.id}')" aria-label="Favorito">${r.favorite?'❤️':'♡'}</button><div class="cardbody"><h3>${safe(r.title)}</h3><div class="meta">${safe(r.category||'Otras')} · ${r.time?safe(r.time)+' min':'Tiempo libre'}</div><span class="badge">${safe(r.servings||2)} raciones</span></div></article>`).join('')}
+function openForm(id=null){editingId=id;resetForm();let r=recipes.find(x=>x.id===id);document.getElementById('editorHeading').textContent=r?'Editar receta':'Añadir receta';if(r){rTitle.value=r.title||'';rCategory.value=r.category||'Otras';rTime.value=r.time||'';rServings.value=r.servings||2;rPhoto.value=r.photo||'';rIngredients.value=r.ingredients||'';rSteps.value=r.steps||'';rNotes.value=r.notes||'';recipeUrl.value=r.url||''}showPage('editor')}
+function resetForm(){['recipeUrl','rTitle','rTime','rPhoto','rIngredients','rSteps','rNotes'].forEach(id=>document.getElementById(id).value='');rCategory.value='Otras';rServings.value=2}
+function saveRecipe(){let title=rTitle.value.trim(),ingredients=rIngredients.value.trim(),steps=rSteps.value.trim();if(!title||!ingredients||!steps){alert('Completa el nombre, los ingredientes y la preparación.');return}let old=recipes.find(x=>x.id===editingId);let r={id:editingId||String(Date.now()),title,category:rCategory.value,time:rTime.value,servings:rServings.value,photo:rPhoto.value.trim(),ingredients,steps,notes:rNotes.value.trim(),url:rUrlValue(),favorite:old?.favorite||false,created:old?.created||Date.now()};if(old)recipes=recipes.map(x=>x.id===editingId?r:x);else recipes.unshift(r);persist();category='Todas';showPage('home')}
+function rUrlValue(){return document.getElementById('recipeUrl').value.trim()}
+function toggleFav(id){recipes=recipes.map(r=>r.id===id?{...r,favorite:!r.favorite}:r);persist();renderRecipes()}
+function showDetail(id){let r=recipes.find(x=>x.id===id);if(!r)return;showPage('detail');let d=document.getElementById('detail');d.innerHTML=`<button class="soft" onclick="showPage('home')">← Volver al recetario</button><div class="detail-hero" style="margin-top:14px">${r.photo?`<img src="${safe(r.photo)}" alt="" onerror="this.parentElement.innerHTML='🍽️'">`:'🍽️'}</div><div class="eyebrow">${safe(r.category||'Otras')} · ${r.time?safe(r.time)+' min':'Tiempo no indicado'}</div><h1 class="detail-title">${safe(r.title)}</h1><div class="subtitle">${safe(r.servings||2)} raciones</div><div class="detail-actions"><button class="soft" onclick="toggleFav('${r.id}');showDetail('${r.id}')">${r.favorite?'❤️ En favoritos':'♡ Añadir a favoritos'}</button><button class="soft" onclick="openForm('${r.id}')">✏️ Editar</button><button class="soft" onclick="deleteRecipe('${r.id}')">🗑️</button></div><div class="panel"><h2>🥕 Ingredientes</h2><div class="detail-copy">${safe(r.ingredients)}</div><button class="soft" style="margin-top:12px" onclick="ingredientsToShopping('${r.id}')">＋ Pasar ingredientes a la compra</button></div><div class="panel"><h2>👨‍🍳 Preparación</h2><div class="detail-copy">${safe(r.steps)}</div></div>${r.notes?`<div class="panel"><h2>🗒️ Mis notas</h2><div class="detail-copy">${safe(r.notes)}</div></div>`:''}${r.url?`<div class="panel"><h2>🔗 Enlace original</h2><a href="${safe(r.url)}" target="_blank" rel="noopener">Abrir receta en Internet ↗</a></div>`:''}`}
+function deleteRecipe(id){if(confirm('¿Quieres borrar esta receta?')){recipes=recipes.filter(r=>r.id!==id);persist();showPage('home')}}
+async function importUrl(){let url=recipeUrl.value.trim();if(!url){alert('Pega primero el enlace de la receta.');return}if(!/^https?:\/\//i.test(url)){alert('El enlace debe empezar por https:// o http://');return}let btn=document.querySelector('#editor button[onclick="importUrl()"]');btn.textContent='Probando…';btn.disabled=true;try{let res=await fetch(url);let html=await res.text();let doc=new DOMParser().parseFromString(html,'text/html');let scripts=[...doc.querySelectorAll('script[type="application/ld+json"]')];let found=null;function scan(o){if(!o)return null;if(Array.isArray(o)){for(let v of o){let z=scan(v);if(z)return z}}else if(typeof o==='object'){if(o['@type']==='Recipe'||(Array.isArray(o['@type'])&&o['@type'].includes('Recipe')))return o;if(o['@graph'])return scan(o['@graph'])}return null}for(let s of scripts){try{found=scan(JSON.parse(s.textContent));if(found)break}catch(e){}}if(found){rTitle.value=found.name||'';rIngredients.value=(found.recipeIngredient||[]).join('\n');let steps=found.recipeInstructions||[];rSteps.value=steps.map((x,i)=>typeof x==='string'?`${i+1}. ${x}`:`${i+1}. ${x.text||x.name||''}`).join('\n');if(found.recipeYield)rServings.value=parseInt(found.recipeYield)||2;let im=found.image;if(Array.isArray(im))im=typeof im[0]==='string'?im[0]:im[0]?.url;if(typeof im==='object')im=im.url;rPhoto.value=im||'';alert('He recuperado los datos disponibles. Revísalos antes de guardar.')}else{alert('La web no ha permitido recuperar automáticamente la receta. He guardado el enlace en el formulario; puedes completar los campos manualmente.')}}catch(e){alert('Esta web bloquea la importación automática desde el iPhone. El enlace se conservará; copia los ingredientes y pasos en los campos.')}finally{btn.textContent='Importar';btn.disabled=false}}
+function renderShopping(){let el=document.getElementById('shoppingList');if(!shopping.length){el.innerHTML='<div class="empty" style="margin-top:12px">🛒<br><strong>Tu lista está vacía</strong>Añade ingredientes o pásalos desde una receta.</div>';return}el.innerHTML=shopping.map((x,i)=>`<div class="listitem"><input type="checkbox" ${x.done?'checked':''} onchange="toggleShopping(${i})"><div style="flex:1" class="${x.done?'checked':''}">${safe(x.text)}</div><button onclick="removeShopping(${i})" style="background:none;color:#9a6558">✕</button></div>`).join('')}
+function addShoppingItem(){let v=newItem.value.trim();if(!v)return;shopping.push({text:v,done:false});newItem.value='';persist();renderShopping()}
+function toggleShopping(i){shopping[i].done=!shopping[i].done;persist();renderShopping()}
+function removeShopping(i){shopping.splice(i,1);persist();renderShopping()}
+function clearShopping(){if(confirm('¿Vaciar toda la lista de la compra?')){shopping=[];persist();renderShopping()}}
+function ingredientsToShopping(id){let r=recipes.find(x=>x.id===id);if(!r)return;let lines=r.ingredients.split('\n').map(s=>s.replace(/^\s*[-•\d.)]+\s*/,'').trim()).filter(Boolean);lines.forEach(t=>shopping.push({text:t,done:false}));persist();showPage('shopping')}
+function exportData(){let blob=new Blob([JSON.stringify({recipes,shopping},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mi-recetario-copia.json';a.click();URL.revokeObjectURL(a.href)}
+function importBackup(ev){let f=ev.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{try{let d=JSON.parse(rd.result);if(!Array.isArray(d.recipes))throw Error();if(confirm('La copia reemplazará las recetas y la lista actuales. ¿Continuar?')){recipes=d.recipes;shopping=Array.isArray(d.shopping)?d.shopping:[];persist();showPage('home');alert('Copia restaurada.')}}catch(e){alert('El archivo no parece una copia válida de Mi Recetario.')}ev.target.value=''};rd.readAsText(f)}
+renderRecipes();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
